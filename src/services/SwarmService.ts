@@ -8,6 +8,24 @@ const AGENTS: Agent[] = [
 
 export const SwarmService = {
   getAgents: () => AGENTS,
+
+  getTargetedAgents: (text: string): Agent[] => {
+    const mentions = SwarmService.parseMentions(text);
+    if (mentions.length > 0) {
+      return AGENTS.filter(a => mentions.some(m => m.toLowerCase() === a.name.toLowerCase()));
+    }
+    if (text.toLowerCase().includes('swarm')) {
+      return AGENTS;
+    }
+    return [AGENTS[0]]; // Default to Architect
+  },
+
+  getAgentResponse: async (text: string, agent: Agent): Promise<Message> => {
+    // Simulate processing delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const responseText = `[${agent.role}] I've analyzed your request: "${text}". Here's my perspective...`;
+    return SwarmService.processMessage(responseText, agent.id, true);
+  },
   
   processMessage: (text: string, senderId: string = 'user', isAgent: boolean = false): Message => {
     return {
