@@ -8,6 +8,7 @@ import ChatInput from './src/components/ChatInput';
 import SwarmDashboard from './src/components/SwarmDashboard';
 import AgentManager from './src/components/AgentManager';
 import StorageExplorer from './src/components/StorageExplorer';
+import SplashScreen from './src/components/SplashScreen';
 
 const App = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -73,6 +74,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
+      <SplashScreen />
       <View style={styles.header}>
         <Text style={styles.title}>Synapse Swarm</Text>
       </View>
